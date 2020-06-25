@@ -1,9 +1,46 @@
 import React, { useEffect } from 'react';
 import { compose } from 'redux';
-import { getTableData, setPageIsReady } from '../redux/reducers/main-reducer';
+import orderBy from 'lodash/orderBy';
 import { connect } from 'react-redux';
 import * as axios from 'axios';
+
 import TableComponent from '../components/Table';
+import {
+	getTableData,
+	setPageIsReady,
+	toggleEditMode,
+	setFilter,
+	setSearchQuery
+} from '../redux/reducers/main-reducer';
+
+const sortBy = (items, filterBy, sortByIsAsc) => {
+	switch (filterBy) {
+		case 'name':
+			return sortByIsAsc ? orderBy(items, 'name', 'asc') : orderBy(items, 'name', 'desc');
+		case 'date':
+			return sortByIsAsc ? orderBy(items, 'date', 'asc') : orderBy(items, 'date', 'desc');
+		case 'timeInSpace':
+			return sortByIsAsc ? orderBy(items, 'days', 'desc') : orderBy(items, 'days', 'asc');
+		case 'mission':
+			return sortByIsAsc ? orderBy(items, 'mission', 'asc') : orderBy(items, 'mission', 'desc');
+		case 'isMultiple':
+			return sortByIsAsc ? orderBy(items, 'isMultiple', 'desc') : orderBy(items, 'isMultiple', 'asc');
+		default:
+			return items;
+	}
+};
+
+const sortedBooks = (items, searchQuery) => {
+	return items.filter(
+		(item) =>
+			item.name.toLowerCase().indexOf(searchQuery.toLowerCase()) >= 0 ||
+			item.mission.toLowerCase().indexOf(searchQuery.toLowerCase()) >= 0
+	);
+};
+
+const searchBooks = (items, filterBy, searchQuery, sortByIsAsc) => {
+	return sortBy(sortedBooks(items, searchQuery), filterBy, sortByIsAsc);
+};
 
 const TableContainer = (props) => {
 	const { getTableData, setPageIsReady } = props;
@@ -17,20 +54,21 @@ const TableContainer = (props) => {
 		[ getTableData, setPageIsReady ]
 	);
 
-	return <TableComponent list={props.items} />;
+	return <TableComponent {...props} />;
 };
 
-const mapStateToProps = ({ items }) => {
+let mapStateToProps = (state) => {
 	return {
-		items
+		// items: sortBy(state.items, state.filterBy, state.sortByIsAsc),
+		items: state.items && searchBooks(state.items, state.filterBy, state.searchQuery, state.sortByIsAsc),
+		isReady: state.isReady,
+		filterBy: state.filterBy,
+		sortByIsAsc: state.sortByIsAsc,
+		searchQuery: state.searchQuery,
+		editModeOn: state.editModeOn
 	};
 };
 
-// const mapDispatchToProps = (dispatch) => {
-// 	return {
-// 		getTableData: (items) => dispatch(getTableData(items)),
-// 		setPageIsReady: (boolean) => dispatch(setPageIsReady(boolean))
-// 	};
-// };
-
-export default compose(connect(mapStateToProps, { getTableData, setPageIsReady }))(TableContainer);
+export default compose(
+	connect(mapStateToProps, { getTableData, setPageIsReady, setFilter, setSearchQuery, toggleEditMode })
+)(TableContainer);

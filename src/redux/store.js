@@ -1,10 +1,15 @@
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, combineReducers } from 'redux';
+import mainReducer from './reducers/main-reducer';
+import filterReducer from './reducers/main-reducer';
 import logger from 'redux-logger';
 
-import mainReducer from './reducers/main-reducer';
+let reducers = combineReducers({
+	filter: filterReducer,
+	main: mainReducer
+});
 
-let reducer = mainReducer;
+let store = createStore(mainReducer, applyMiddleware(logger));
 
-let store = createStore(reducer, applyMiddleware(logger));
+window.store = store;
 
 export default store;
