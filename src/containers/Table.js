@@ -3,6 +3,7 @@ import { compose } from 'redux';
 import orderBy from 'lodash/orderBy';
 import { connect } from 'react-redux';
 import * as axios from 'axios';
+import { v4 as uuidv4 } from 'uuid';
 
 import TableComponent from '../components/Table';
 import {
@@ -10,7 +11,9 @@ import {
 	setPageIsReady,
 	toggleEditMode,
 	setFilter,
-	setSearchQuery
+	setSearchQuery,
+	addItem,
+	removeItem
 } from '../redux/reducers/main-reducer';
 
 const sortBy = (items, filterBy, sortByIsAsc) => {
@@ -30,7 +33,7 @@ const sortBy = (items, filterBy, sortByIsAsc) => {
 	}
 };
 
-const sortedBooks = (items, searchQuery) => {
+const sortedItems = (items, searchQuery) => {
 	return items.filter(
 		(item) =>
 			item.name.toLowerCase().indexOf(searchQuery.toLowerCase()) >= 0 ||
@@ -38,8 +41,8 @@ const sortedBooks = (items, searchQuery) => {
 	);
 };
 
-const searchBooks = (items, filterBy, searchQuery, sortByIsAsc) => {
-	return sortBy(sortedBooks(items, searchQuery), filterBy, sortByIsAsc);
+const searchItems = (items, filterBy, searchQuery, sortByIsAsc) => {
+	return sortBy(sortedItems(items, searchQuery), filterBy, sortByIsAsc);
 };
 
 const TableContainer = (props) => {
@@ -47,7 +50,8 @@ const TableContainer = (props) => {
 	useEffect(
 		() => {
 			axios.get('/data.json').then(({ data }) => {
-				getTableData(data);
+				const dataWithIDs = data.map((item) => ({ ...item, id: uuidv4() }));
+				getTableData(dataWithIDs);
 				setPageIsReady(true);
 			});
 		},
@@ -59,16 +63,25 @@ const TableContainer = (props) => {
 
 let mapStateToProps = (state) => {
 	return {
-		// items: sortBy(state.items, state.filterBy, state.sortByIsAsc),
-		items: state.items && searchBooks(state.items, state.filterBy, state.searchQuery, state.sortByIsAsc),
-		isReady: state.isReady,
-		filterBy: state.filterBy,
-		sortByIsAsc: state.sortByIsAsc,
-		searchQuery: state.searchQuery,
-		editModeOn: state.editModeOn
+		items:
+			state.main.items &&
+			searchItems(state.main.items, state.main.filterBy, state.main.searchQuery, state.main.sortByIsAsc),
+		isReady: state.main.isReady,
+		filterBy: state.main.filterBy,
+		sortByIsAsc: state.main.sortByIsAsc,
+		searchQuery: state.main.searchQuery,
+		editModeOn: state.main.editModeOn
 	};
 };
 
 export default compose(
-	connect(mapStateToProps, { getTableData, setPageIsReady, setFilter, setSearchQuery, toggleEditMode })
+	connect(mapStateToProps, {
+		getTableData,
+		setPageIsReady,
+		setFilter,
+		addItem,
+		setSearchQuery,
+		toggleEditMode,
+		removeItem
+	})
 )(TableContainer);

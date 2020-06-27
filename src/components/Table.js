@@ -1,16 +1,13 @@
 import React from 'react';
-import InputGroup from 'react-bootstrap/InputGroup';
-import Form from 'react-bootstrap/Form';
-import FormControl from 'react-bootstrap/FormControl';
 import Button from 'react-bootstrap/Button';
 import Table from 'react-bootstrap/Table';
+import { v4 as uuidv4 } from 'uuid';
 
 import TableElement from './TableElement';
+import ReduxForm from './Form';
 
 const TableComponent = (props) => {
-	const { items, isReady, searchQuery, setSearchQuery, toggleEditMode, editModeOn } = props;
-
-	console.log(props);
+	const { items, isReady, searchQuery, setSearchQuery, toggleEditMode, editModeOn, addItem, removeItem } = props;
 
 	const handleItemClick = (e) => {
 		const { setFilter, sortByIsAsc } = props;
@@ -25,36 +22,75 @@ const TableComponent = (props) => {
 		setSearchQuery(e.target.value);
 	};
 
+	const convertDate = (date) => {
+		let convertedDate = new Date(date).toDateString();
+		return convertedDate;
+	};
+
+	const capitalLetter = (str) => {
+		str = str.split(' ');
+
+		for (let i = 0, x = str.length; i < x; i++) {
+			str[i] = str[i][0].toUpperCase() + str[i].substr(1);
+		}
+
+		return str.join(' ');
+	};
+
+	const handleSubmit = (values) => {
+		let newValues = {
+			...values,
+			id: uuidv4(),
+			name: capitalLetter(values.name),
+			date: convertDate(values.date),
+			mission: capitalLetter(values.mission)
+		};
+		addItem(newValues);
+	};
+
 	return (
-		<Table striped bordered hover size="sm">
-			<thead>
-				<tr>
-					<th onClick={handleItemClick} abbr="name">
-						Имя
-					</th>
-					<th onClick={handleItemClick} abbr="date">
-						Дата первого полета
-					</th>
-					<th onClick={handleItemClick} abbr="timeInSpace">
-						Количество дней в космосе
-					</th>
-					<th onClick={handleItemClick} abbr="mission">
-						Название миссии
-					</th>
-					<th onClick={handleItemClick} abbr="isMultiple">
-						Наличие повторных полетов
-					</th>
-				</tr>
-			</thead>
-			<tbody>
-				{!isReady ? 'Загрузка...' : items.map((dataItem) => <TableElement {...dataItem} key={dataItem.name} />)}
-			</tbody>
-			{editModeOn && <input type="text" placeholder="input" />}
-			<input type="text" value={searchQuery} placeholder="Search..." onChange={handleFieldChange} />
+		<div>
 			<Button variant="light" onClick={toggleEditMode}>
-				Light
+				Режим редактирования
 			</Button>
-		</Table>
+			<input type="text" value={searchQuery} placeholder="Search..." onChange={handleFieldChange} />
+			{editModeOn && <ReduxForm onSubmit={handleSubmit} />}
+			<Table striped bordered hover size="md">
+				<thead>
+					<tr>
+						<th onClick={handleItemClick} abbr="name">
+							Имя
+						</th>
+						<th onClick={handleItemClick} abbr="date">
+							Дата первого полета
+						</th>
+						<th onClick={handleItemClick} abbr="timeInSpace">
+							Количество дней в космосе
+						</th>
+						<th onClick={handleItemClick} abbr="mission">
+							Название миссии
+						</th>
+						<th onClick={handleItemClick} abbr="isMultiple">
+							Наличие повторных полетов
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					{!isReady ? (
+						'Загрузка...'
+					) : (
+						items.map((dataItem) => (
+							<TableElement
+								{...dataItem}
+								key={dataItem.id}
+								onRemove={() => removeItem(dataItem.id)}
+								editModeOn={editModeOn}
+							/>
+						))
+					)}
+				</tbody>
+			</Table>
+		</div>
 	);
 };
 
