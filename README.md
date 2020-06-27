@@ -8,6 +8,7 @@
 * Lodash
 * Bootstrap (React)
 * redux-form
+* uuid
 
 **Features:**
 

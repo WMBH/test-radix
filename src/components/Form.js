@@ -1,8 +1,8 @@
 import React from 'react';
-import Input from './common/FormContol';
-import Form from 'react-bootstrap/Form';
 import { reduxForm, Field } from 'redux-form';
 import { required, date, numericality } from 'redux-form-validators';
+
+import Input from './common/FormContol';
 
 const FormToRender = (props) => {
 	const { handleSubmit } = props;
