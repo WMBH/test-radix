@@ -8,44 +8,39 @@ const FormToRender = (props) => {
 	const { handleSubmit } = props;
 	return (
 		<form onSubmit={handleSubmit}>
-			<Form.Group>
-				<div className="fields">
-					<Field
-						className="field"
-						name="name"
-						component={Input}
-						placeholder="Enter a name"
-						validate={[ required() ]}
-					/>
-					<Field
-						className="field"
-						name="date"
-						component={Input}
-						placeholder="dd/mm/yyyy"
-						validate={[ date({ format: 'dd/mm/yyyy' }) ]}
-					/>
-					<Field
-						className="field"
-						name="days"
-						component={Input}
-						placeholder="Days in space"
-						validate={(required(), numericality())}
-					/>
-					<Field
-						className="field"
-						name="mission"
-						component={Input}
-						placeholder="Mission name"
-						validate={[ required() ]}
-					/>
-				</div>
-				<div className="checkbox">
-					<h6>Had multiple missions?</h6>
-					<Field className="field" name="isMultiple" component="input" type="checkbox" />
-				</div>
-
+			<div className="fields">
+				<Field
+					className="field"
+					name="name"
+					component={Input}
+					placeholder="Enter a name"
+					validate={[ required() ]}
+				/>
+				<Field
+					className="field"
+					name="date"
+					component={Input}
+					placeholder="dd/mm/yyyy"
+					validate={[ date({ format: 'dd/mm/yyyy' }) ]}
+				/>
+				<Field
+					className="field"
+					name="days"
+					component={Input}
+					placeholder="Days in space"
+					validate={(required(), numericality())}
+				/>
+				<Field
+					className="field"
+					name="mission"
+					component={Input}
+					placeholder="Mission name"
+					validate={[ required() ]}
+				/>
+				<h6>Had multiple missions?</h6>
+				<Field className="field" name="isMultiple" component="input" type="checkbox" />
 				<button>Add a record</button>
-			</Form.Group>
+			</div>
 		</form>
 	);
 };

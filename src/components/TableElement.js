@@ -5,7 +5,7 @@ import './TableElement.css';
 const TableElement = (props) => {
 	const { name, date, days, mission, isMultiple, onRemove, id, editModeOn } = props;
 
-	const convertDate = (date) => {
+	const convertDateToDateString = (date) => {
 		let convertedDate = new Date(date).toDateString();
 		return convertedDate;
 	};
@@ -17,7 +17,7 @@ const TableElement = (props) => {
 	return (
 		<tr>
 			<td>{name}</td>
-			<td>{convertDate(date)}</td>
+			<td>{convertDateToDateString(date)}</td>
 			<td>{days}</td>
 			<td>{mission}</td>
 			<td className="tdparent">

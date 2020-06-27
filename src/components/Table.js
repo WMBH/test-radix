@@ -23,9 +23,11 @@ const TableComponent = (props) => {
 		setSearchQuery(e.target.value);
 	};
 
-	const convertDate = (date) => {
+	const convertDateToMS = (date) => {
 		let convertedDate = new Date(date).toDateString();
-		return convertedDate;
+		let millDate = Date.parse(convertedDate);
+		console.log(millDate);
+		return millDate;
 	};
 
 	const capitalLetter = (str) => {
@@ -43,7 +45,7 @@ const TableComponent = (props) => {
 			...values,
 			id: uuidv4(),
 			name: capitalLetter(values.name),
-			date: convertDate(values.date),
+			date: convertDateToMS(values.date),
 			mission: capitalLetter(values.mission)
 		};
 		addItem(newValues);
@@ -51,11 +53,14 @@ const TableComponent = (props) => {
 
 	return (
 		<div>
-			<Button variant="light" onClick={toggleEditMode}>
-				Режим редактирования
-			</Button>
-			<input type="text" value={searchQuery} placeholder="Search..." onChange={handleFieldChange} />
-			<div className="editmode">{editModeOn && <ReduxForm onSubmit={handleSubmit} />}</div>
+			<div className="editmode">
+				<Button variant="light" onClick={toggleEditMode}>
+					Режим редактирования
+				</Button>
+				<input type="text" value={searchQuery} placeholder="Поиск..." onChange={handleFieldChange} />
+				{editModeOn && <ReduxForm onSubmit={handleSubmit} />}
+			</div>
+
 			<Table striped bordered hover size="md">
 				<thead>
 					<tr>
