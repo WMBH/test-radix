@@ -7,17 +7,15 @@ const Input = ({ input, meta, placeholder, ...props }) => {
 
 	return (
 		<div>
-			<div>
-				<Form.Control
-					{...props}
-					{...input}
-					size="sm"
-					type="text"
-					isInvalid={hasError}
-					placeholder={hasError ? `Field ${meta.error}` : `${placeholder}`}
-					onBlur={(meta.submitFailed = false)}
-				/>
-			</div>
+			<Form.Control
+				{...props}
+				{...input}
+				size="sm"
+				type="text"
+				isInvalid={hasError}
+				placeholder={hasError ? `Field ${meta.error}` : `${placeholder}`}
+				onBlur={(meta.submitFailed = false)}
+			/>
 		</div>
 	);
 };

@@ -1,0 +1,29 @@
+.editmode .form-group {
+	display: flex;
+	align-items: flex-start;
+	flex-direction: row;
+	justify-content: space-between;
+	margin-top: 20px;
+	margin-left: 20px;
+	margin-right: auto;
+}
+
+.editmode form {
+	align-items: flex-start;
+	justify-content: space-between;
+}
+
+.editmode .form-group .checkbox {
+	display: flex;
+	flex-direction: column;
+	margin: 0 auto;
+}
+
+.editmode form .fields {
+	display: flex;
+	justify-content: space-between;
+}
+
+.editmode form .fields .field .form-control .form-control-sm {
+	margin-right: 20px;
+}

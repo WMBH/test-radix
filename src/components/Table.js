@@ -3,6 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Table from 'react-bootstrap/Table';
 import { v4 as uuidv4 } from 'uuid';
 
+import './Table.css';
 import TableElement from './TableElement';
 import ReduxForm from './Form';
 
@@ -54,7 +55,7 @@ const TableComponent = (props) => {
 				Режим редактирования
 			</Button>
 			<input type="text" value={searchQuery} placeholder="Search..." onChange={handleFieldChange} />
-			{editModeOn && <ReduxForm onSubmit={handleSubmit} />}
+			<div className="editmode">{editModeOn && <ReduxForm onSubmit={handleSubmit} />}</div>
 			<Table striped bordered hover size="md">
 				<thead>
 					<tr>
