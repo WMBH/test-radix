@@ -3,13 +3,11 @@ import mainReducer from './reducers/main-reducer';
 import logger from 'redux-logger';
 import { reducer as formReducer } from 'redux-form';
 
-let reducers = combineReducers({
+const reducers = combineReducers({
 	main: mainReducer,
 	form: formReducer
 });
 
-let store = createStore(reducers, applyMiddleware(logger));
-
-window.store = store;
+const store = createStore(reducers, applyMiddleware(logger));
 
 export default store;

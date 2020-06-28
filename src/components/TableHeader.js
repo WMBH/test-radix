@@ -1,30 +1,31 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 
 const TableHeader = (props) => {
-	const handleItemClick = (e) => {
-		const { setFilter, sortByIsAsc } = props;
-		const abbr = e.target.abbr;
-		console.log(abbr);
-		sortByIsAsc
-			? setFilter({ filterBy: abbr, sortByIsAsc: false })
-			: setFilter({ filterBy: abbr, sortByIsAsc: true });
-	};
+	const { setFilter, sortByIsAsc } = props;
+
+	const onClickItem = useCallback(
+		(event) => {
+			const abbr = event.target.abbr;
+			setFilter({ filterBy: abbr, sortByIsAsc: !sortByIsAsc });
+		},
+		[ setFilter, sortByIsAsc ]
+	);
 
 	return (
 		<tr>
-			<th onClick={handleItemClick} abbr="name">
+			<th onClick={onClickItem} abbr="name">
 				Имя
 			</th>
-			<th onClick={handleItemClick} abbr="date">
+			<th onClick={onClickItem} abbr="date">
 				Дата первого полета
 			</th>
-			<th onClick={handleItemClick} abbr="timeInSpace">
+			<th onClick={onClickItem} abbr="timeInSpace">
 				Количество дней в космосе
 			</th>
-			<th onClick={handleItemClick} abbr="mission">
+			<th onClick={onClickItem} abbr="mission">
 				Название миссии
 			</th>
-			<th onClick={handleItemClick} abbr="isMultiple">
+			<th onClick={onClickItem} abbr="isMultiple">
 				Наличие повторных полетов
 			</th>
 		</tr>

@@ -1,14 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import store from './redux/store';
 import { Provider } from 'react-redux';
 
+import store from './store/store';
+import TableContainer from './containers/Table';
+import './index.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 ReactDOM.render(
 	<Provider store={store}>
-		<App />
+		<TableContainer />;
 	</Provider>,
 	document.getElementById('root')
 );

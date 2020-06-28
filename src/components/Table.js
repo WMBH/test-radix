@@ -16,7 +16,7 @@ const TableComponent = (props) => {
 	const { items, isReady, searchQuery, setSearchQuery, toggleEditMode, editModeOn, addItem, removeItem } = props;
 
 	const [ currentPage, setCurrentPage ] = useState(1);
-	const [ postsPerPage ] = useState(14);
+	const [ postsPerPage ] = useState(10);
 
 	const handleFieldChange = (e) => {
 		setSearchQuery(e.target.value);
@@ -43,6 +43,10 @@ const TableComponent = (props) => {
 		setCurrentPage(pageNumber);
 	};
 
+	const handleOnRemove = (id) => {
+		removeItem(id);
+	};
+
 	return (
 		<div>
 			<div className="editmode">
@@ -65,7 +69,7 @@ const TableComponent = (props) => {
 							<TableElement
 								{...dataItem}
 								key={dataItem.id}
-								onRemove={() => removeItem(dataItem.id)}
+								onRemove={handleOnRemove}
 								editModeOn={editModeOn}
 							/>
 						))

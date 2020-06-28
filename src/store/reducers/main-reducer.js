@@ -1,10 +1,10 @@
-const GET_TABLE_DATA = 'GET_TABLE_DATA';
-const SET_PAGE_IS_READY = 'SET_PAGE_IS_READY';
-const SET_FILTER = 'SET_FILTER';
-const SET_QUERY = 'SET_QUERY';
-const TOGGLE_EDIT_MODE = 'TOGGLE_EDIT_MODE';
-const ADD_ITEM = 'ADD_ITEM';
-const REMOVE_ITEM = 'REMOVE_ITEM';
+const GET_TABLE_DATA = 'main/GET_TABLE_DATA';
+const SET_PAGE_IS_READY = 'main/SET_PAGE_IS_READY';
+const SET_FILTER = 'main/SET_FILTER';
+const SET_QUERY = 'main/SET_QUERY';
+const TOGGLE_EDIT_MODE = 'main/TOGGLE_EDIT_MODE';
+const ADD_ITEM = 'main/ADD_ITEM';
+const REMOVE_ITEM = 'main/REMOVE_ITEM';
 
 const initialState = {
 	items: [],
@@ -17,38 +17,38 @@ const initialState = {
 
 const mainReducer = (state = initialState, action) => {
 	switch (action.type) {
-		case 'ADD_ITEM':
+		case 'main/ADD_ITEM':
 			return {
 				...state,
 				items: [ ...state.items, action.payload ]
 			};
-		case 'REMOVE_ITEM':
+		case 'main/REMOVE_ITEM':
 			return {
 				...state,
 				items: state.items.filter((item) => item.id !== action.payload)
 			};
-		case 'GET_TABLE_DATA':
+		case 'main/GET_TABLE_DATA':
 			return {
 				...state,
 				items: action.payload
 			};
-		case 'SET_PAGE_IS_READY':
+		case 'main/SET_PAGE_IS_READY':
 			return {
 				...state,
 				isReady: action.payload
 			};
-		case 'SET_FILTER':
+		case 'main/SET_FILTER':
 			return {
 				...state,
 				filterBy: action.payload.filterBy,
 				sortByIsAsc: action.payload.sortByIsAsc
 			};
-		case 'SET_QUERY':
+		case 'main/SET_QUERY':
 			return {
 				...state,
 				searchQuery: action.payload
 			};
-		case 'TOGGLE_EDIT_MODE':
+		case 'main/TOGGLE_EDIT_MODE':
 			return {
 				...state,
 				editModeOn: !state.editModeOn

@@ -1,8 +1,6 @@
 export const convertDateToMS = (date) => {
-	let convertedDate = new Date(date).toDateString();
-	let millDate = Date.parse(convertedDate);
-	console.log(millDate);
-	return millDate;
+	const convertedDate = new Date(date).valueOf();
+	return convertedDate;
 };
 
 export const capitalLetter = (str) => {
@@ -14,6 +12,6 @@ export const capitalLetter = (str) => {
 };
 
 export const convertDateToDateString = (date) => {
-	let convertedDate = new Date(date).toDateString();
+	const convertedDate = new Date(date).toDateString();
 	return convertedDate;
 };

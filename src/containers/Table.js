@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { compose } from 'redux';
 import orderBy from 'lodash/orderBy';
 import { connect } from 'react-redux';
 import * as axios from 'axios';
@@ -15,7 +14,7 @@ import {
 	setSearchQuery,
 	addItem,
 	removeItem
-} from '../redux/reducers/main-reducer';
+} from '../store/reducers/main-reducer';
 
 const sortBy = (items, filterBy, sortByIsAsc) => {
 	switch (filterBy) {
@@ -48,44 +47,37 @@ const searchItems = (items, filterBy, searchQuery, sortByIsAsc) => {
 
 const TableContainer = (props) => {
 	const { getTableData, setPageIsReady } = props;
-	useEffect(
-		() => {
-			const fetchData = async () => {
-				const res = await axios.get('/data.json');
-				const dataWithIDs = res.data.map((item) => ({ ...item, id: uuidv4() }));
-				getTableData(dataWithIDs);
-				setPageIsReady(true);
-			};
-			fetchData();
-		},
-		[ getTableData, setPageIsReady ]
-	);
-
+	useEffect(() => {
+		axios.get('/data.json').then(({ data }) => {
+			const dataWithIDs = data.map((item) => ({ ...item, id: uuidv4() }));
+			getTableData(dataWithIDs);
+			setPageIsReady(true);
+		});
+	}, []);
 	return <TableComponent {...props} />;
 };
 
-let mapStateToProps = (state) => {
+const mapStateToProps = (state) => {
+	const { items, isReady, filterBy, sortByIsAsc, searchQuery, editModeOn } = state.main;
+
 	return {
 		items:
-			state.main.items &&
-			searchItems(state.main.items, state.main.filterBy, state.main.searchQuery, state.main.sortByIsAsc),
-		isReady: state.main.isReady,
-		filterBy: state.main.filterBy,
-		sortByIsAsc: state.main.sortByIsAsc,
-		searchQuery: state.main.searchQuery,
-		editModeOn: state.main.editModeOn
+			items && searchItems(state.main.items, state.main.filterBy, state.main.searchQuery, state.main.sortByIsAsc),
+		isReady,
+		filterBy,
+		sortByIsAsc,
+		searchQuery,
+		editModeOn
 	};
 };
 
-export default compose(
-	connect(mapStateToProps, {
-		getTableData,
-		setPageIsReady,
-		setFilter,
-		addItem,
-		setSearchQuery,
-		toggleEditMode,
-		removeItem,
-		reset
-	})
-)(TableContainer);
+export default connect(mapStateToProps, {
+	getTableData,
+	setPageIsReady,
+	setFilter,
+	addItem,
+	setSearchQuery,
+	toggleEditMode,
+	removeItem,
+	reset
+})(TableContainer);

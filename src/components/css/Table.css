@@ -1,3 +1,17 @@
+body {
+	margin-top: 20px;
+	margin-left: 20px;
+	margin-right: 20px;
+}
+
+.App {
+	text-align: center;
+}
+
+td .fields {
+	display: flex;
+}
+
 div .editmode {
 	margin: 15px;
 }
