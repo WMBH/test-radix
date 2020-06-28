@@ -4,6 +4,8 @@ import Table from 'react-bootstrap/Table';
 import { v4 as uuidv4 } from 'uuid';
 
 import './Table.css';
+import TableHeader from '../containers/TableHeader';
+
 import TableElement from './TableElement';
 import ReduxForm from './Form';
 
@@ -44,11 +46,13 @@ const TableComponent = (props) => {
 		let newValues = {
 			...values,
 			id: uuidv4(),
+			days: parseInt(values.days),
 			name: capitalLetter(values.name),
 			date: convertDateToMS(values.date),
 			mission: capitalLetter(values.mission)
 		};
 		addItem(newValues);
+		props.reset('edit');
 	};
 
 	return (
@@ -63,7 +67,8 @@ const TableComponent = (props) => {
 
 			<Table striped bordered hover size="md">
 				<thead>
-					<tr>
+					<TableHeader />
+					{/* <tr>
 						<th onClick={handleItemClick} abbr="name">
 							Имя
 						</th>
@@ -79,7 +84,7 @@ const TableComponent = (props) => {
 						<th onClick={handleItemClick} abbr="isMultiple">
 							Наличие повторных полетов
 						</th>
-					</tr>
+					</tr> */}
 				</thead>
 				<tbody>
 					{!isReady ? (

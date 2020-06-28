@@ -15,7 +15,6 @@ const Input = ({ input, meta, placeholder, ...props }) => {
 				type="text"
 				isInvalid={hasError}
 				placeholder={hasError ? `Field ${meta.error}` : `${placeholder}`}
-				onBlur={(meta.submitFailed = false)}
 			/>
 		</div>
 	);

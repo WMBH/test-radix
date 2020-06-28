@@ -4,6 +4,7 @@ import orderBy from 'lodash/orderBy';
 import { connect } from 'react-redux';
 import * as axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
+import { reset } from 'redux-form';
 
 import TableComponent from '../components/Table';
 import {
@@ -82,6 +83,7 @@ export default compose(
 		addItem,
 		setSearchQuery,
 		toggleEditMode,
-		removeItem
+		removeItem,
+		reset
 	})
 )(TableContainer);

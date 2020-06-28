@@ -6,6 +6,7 @@ import Input from './common/FormContol';
 
 const FormToRender = (props) => {
 	const { handleSubmit } = props;
+
 	return (
 		<form onSubmit={handleSubmit}>
 			<div className="fields">
