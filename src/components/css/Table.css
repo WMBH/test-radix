@@ -25,3 +25,7 @@ div .editmode input {
 	align-items: center;
 	margin: 20px;
 }
+
+.clickable {
+	cursor: pointer;
+}

@@ -13,19 +13,19 @@ const TableHeader = (props) => {
 
 	return (
 		<tr>
-			<th onClick={onClickItem} abbr="name">
+			<th className="clickable" onClick={onClickItem} abbr="name">
 				Имя
 			</th>
-			<th onClick={onClickItem} abbr="date">
+			<th className="clickable" onClick={onClickItem} abbr="date">
 				Дата первого полета
 			</th>
-			<th onClick={onClickItem} abbr="timeInSpace">
+			<th className="clickable" onClick={onClickItem} abbr="timeInSpace">
 				Количество дней в космосе
 			</th>
-			<th onClick={onClickItem} abbr="mission">
+			<th className="clickable" onClick={onClickItem} abbr="mission">
 				Название миссии
 			</th>
-			<th onClick={onClickItem} abbr="isMultiple">
+			<th className="clickable" onClick={onClickItem} abbr="isMultiple">
 				Наличие повторных полетов
 			</th>
 		</tr>

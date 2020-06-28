@@ -11,9 +11,9 @@ const PageItem = ({ number, onClick }) => {
 
 	return (
 		<li className="page-item">
-			<a href="!#" className="page-link" onClick={onClickItem}>
+			<div className="page-link" onClick={onClickItem}>
 				{page}
-			</a>
+			</div>
 		</li>
 	);
 };
