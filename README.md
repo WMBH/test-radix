@@ -1,4 +1,8 @@
-## Тестовое задание для Radix
+## Тестовое задание для 
+
+**Demo:**
+
+http://test-radix.surge.sh/
 
 **Stack:**
 
