@@ -16,7 +16,14 @@ const TableComponent = (props) => {
 	const { items, isReady, searchQuery, setSearchQuery, toggleEditMode, editModeOn, addItem, removeItem } = props;
 
 	const [ currentPage, setCurrentPage ] = useState(1);
-	const [ postsPerPage ] = useState(10);
+	const postsPerPage = 10;
+	const indexOfLastPost = currentPage * postsPerPage;
+	const indexOfFirstPost = indexOfLastPost - postsPerPage;
+	const currentPosts = items.slice(indexOfFirstPost, indexOfLastPost);
+
+	const paginate = (pageNumber) => {
+		setCurrentPage(pageNumber);
+	};
 
 	const handleFieldChange = (e) => {
 		setSearchQuery(e.target.value);
@@ -33,14 +40,6 @@ const TableComponent = (props) => {
 		};
 		addItem(newValues);
 		props.reset('edit');
-	};
-
-	const indexOfLastPost = currentPage * postsPerPage;
-	const indexOfFirstPost = indexOfLastPost - postsPerPage;
-	const currentPosts = items.slice(indexOfFirstPost, indexOfLastPost);
-
-	const paginate = (pageNumber) => {
-		setCurrentPage(pageNumber);
 	};
 
 	const handleOnRemove = (id) => {
