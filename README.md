@@ -2,7 +2,7 @@
 
 **Demo:**
 
-http://test-radix.surge.sh/
+http://react-book-store.surge.sh/
 
 **Stack:**
 

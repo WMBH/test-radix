@@ -1,5 +1,4 @@
 import { createStore, applyMiddleware, combineReducers } from 'redux';
-import logger from 'redux-logger';
 import { reducer as formReducer } from 'redux-form';
 
 import mainReducer from './reducers/main-reducer';
@@ -9,6 +8,6 @@ const reducers = combineReducers({
 	form: formReducer
 });
 
-const store = createStore(reducers, applyMiddleware(logger));
+const store = createStore(reducers);
 
 export default store;
