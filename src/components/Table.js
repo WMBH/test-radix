@@ -6,6 +6,7 @@ import { v4 as uuidv4 } from 'uuid';
 import TableHeader from '../containers/TableHeader';
 import TableElement from './TableElement';
 import Pagination from './Pagination';
+import Preloader from './common/Preloader';
 import ReduxForm from './Form';
 import { convertDateToMS, capitalLetter } from '../utils/helpers';
 
@@ -58,7 +59,7 @@ const TableComponent = (props) => {
 				</thead>
 				<tbody>
 					{!isReady ? (
-						'Загрузка...'
+						<Preloader />
 					) : (
 						currentPosts.map((dataItem) => (
 							<TableElement
