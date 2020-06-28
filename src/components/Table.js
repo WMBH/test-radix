@@ -1,48 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Table from 'react-bootstrap/Table';
 import { v4 as uuidv4 } from 'uuid';
 
-import './Table.css';
 import TableHeader from '../containers/TableHeader';
-
 import TableElement from './TableElement';
+import Pagination from './Pagination';
 import ReduxForm from './Form';
+import { convertDateToMS, capitalLetter } from '../utils/helpers';
+
+import './css/Table.css';
 
 const TableComponent = (props) => {
 	const { items, isReady, searchQuery, setSearchQuery, toggleEditMode, editModeOn, addItem, removeItem } = props;
 
-	const handleItemClick = (e) => {
-		const { setFilter, sortByIsAsc } = props;
-		const abbr = e.target.abbr;
-		console.log(abbr);
-		sortByIsAsc
-			? setFilter({ filterBy: abbr, sortByIsAsc: false })
-			: setFilter({ filterBy: abbr, sortByIsAsc: true });
-	};
+	const [ currentPage, setCurrentPage ] = useState(1);
+	const [ postsPerPage ] = useState(14);
 
 	const handleFieldChange = (e) => {
 		setSearchQuery(e.target.value);
 	};
 
-	const convertDateToMS = (date) => {
-		let convertedDate = new Date(date).toDateString();
-		let millDate = Date.parse(convertedDate);
-		console.log(millDate);
-		return millDate;
-	};
-
-	const capitalLetter = (str) => {
-		str = str.split(' ');
-
-		for (let i = 0, x = str.length; i < x; i++) {
-			str[i] = str[i][0].toUpperCase() + str[i].substr(1);
-		}
-
-		return str.join(' ');
-	};
-
-	const handleSubmit = (values) => {
+	const handleSubmitForm = (values) => {
 		let newValues = {
 			...values,
 			id: uuidv4(),
@@ -55,6 +34,14 @@ const TableComponent = (props) => {
 		props.reset('edit');
 	};
 
+	const indexOfLastPost = currentPage * postsPerPage;
+	const indexOfFirstPost = indexOfLastPost - postsPerPage;
+	const currentPosts = items.slice(indexOfFirstPost, indexOfLastPost);
+
+	const paginate = (pageNumber) => {
+		setCurrentPage(pageNumber);
+	};
+
 	return (
 		<div>
 			<div className="editmode">
@@ -62,35 +49,18 @@ const TableComponent = (props) => {
 					Режим редактирования
 				</Button>
 				<input type="text" value={searchQuery} placeholder="Поиск..." onChange={handleFieldChange} />
-				{editModeOn && <ReduxForm onSubmit={handleSubmit} />}
+				{editModeOn && <ReduxForm onSubmit={handleSubmitForm} />}
 			</div>
 
 			<Table striped bordered hover size="md">
 				<thead>
 					<TableHeader />
-					{/* <tr>
-						<th onClick={handleItemClick} abbr="name">
-							Имя
-						</th>
-						<th onClick={handleItemClick} abbr="date">
-							Дата первого полета
-						</th>
-						<th onClick={handleItemClick} abbr="timeInSpace">
-							Количество дней в космосе
-						</th>
-						<th onClick={handleItemClick} abbr="mission">
-							Название миссии
-						</th>
-						<th onClick={handleItemClick} abbr="isMultiple">
-							Наличие повторных полетов
-						</th>
-					</tr> */}
 				</thead>
 				<tbody>
 					{!isReady ? (
 						'Загрузка...'
 					) : (
-						items.map((dataItem) => (
+						currentPosts.map((dataItem) => (
 							<TableElement
 								{...dataItem}
 								key={dataItem.id}
@@ -101,6 +71,7 @@ const TableComponent = (props) => {
 					)}
 				</tbody>
 			</Table>
+			<Pagination postsPerPage={postsPerPage} totalPosts={items.length} paginate={paginate} />
 		</div>
 	);
 };

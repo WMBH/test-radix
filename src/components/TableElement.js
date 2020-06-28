@@ -1,15 +1,11 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
 
-import './TableElement.css';
+import { convertDateToDateString } from '../utils/helpers';
+import './css/TableElement.css';
 
 const TableElement = (props) => {
 	const { name, date, days, mission, isMultiple, onRemove, id, editModeOn } = props;
-
-	const convertDateToDateString = (date) => {
-		let convertedDate = new Date(date).toDateString();
-		return convertedDate;
-	};
 
 	const handleOnRemove = () => {
 		onRemove(id);

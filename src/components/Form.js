@@ -4,6 +4,8 @@ import { required, date, numericality } from 'redux-form-validators';
 
 import Input from './common/FormContol';
 
+import './css/Form.css';
+
 const FormToRender = (props) => {
 	const { handleSubmit } = props;
 
@@ -38,9 +40,11 @@ const FormToRender = (props) => {
 					placeholder="Mission name"
 					validate={[ required() ]}
 				/>
-				<h6>Had multiple missions?</h6>
-				<Field className="field" name="isMultiple" component="input" type="checkbox" />
-				<button>Add a record</button>
+				<div className="checkbox-field">
+					<h6>Наличие повторных полетов</h6>
+					<Field className="field" name="isMultiple" component="input" type="checkbox" />
+				</div>
+				<button>Добавить запись</button>
 			</div>
 		</form>
 	);

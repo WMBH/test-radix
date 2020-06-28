@@ -50,11 +50,13 @@ const TableContainer = (props) => {
 	const { getTableData, setPageIsReady } = props;
 	useEffect(
 		() => {
-			axios.get('/data.json').then(({ data }) => {
-				const dataWithIDs = data.map((item) => ({ ...item, id: uuidv4() }));
+			const fetchData = async () => {
+				const res = await axios.get('/data.json');
+				const dataWithIDs = res.data.map((item) => ({ ...item, id: uuidv4() }));
 				getTableData(dataWithIDs);
 				setPageIsReady(true);
-			});
+			};
+			fetchData();
 		},
 		[ getTableData, setPageIsReady ]
 	);
