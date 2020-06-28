@@ -17,17 +17,19 @@ import {
 } from '../store/reducers/main-reducer';
 
 const sortBy = (items, filterBy, sortByIsAsc) => {
+	const sortOrder = sortByIsAsc ? 'asc' : 'desc';
+
 	switch (filterBy) {
 		case 'name':
-			return sortByIsAsc ? orderBy(items, 'name', 'asc') : orderBy(items, 'name', 'desc');
+			return orderBy(items, 'name', sortOrder);
 		case 'date':
-			return sortByIsAsc ? orderBy(items, 'date', 'asc') : orderBy(items, 'date', 'desc');
+			return orderBy(items, 'date', sortOrder);
 		case 'timeInSpace':
-			return sortByIsAsc ? orderBy(items, 'days', 'desc') : orderBy(items, 'days', 'asc');
+			return orderBy(items, 'days', sortOrder);
 		case 'mission':
-			return sortByIsAsc ? orderBy(items, 'mission', 'asc') : orderBy(items, 'mission', 'desc');
+			return orderBy(items, 'mission', sortOrder);
 		case 'isMultiple':
-			return sortByIsAsc ? orderBy(items, 'isMultiple', 'desc') : orderBy(items, 'isMultiple', 'asc');
+			return orderBy(items, 'isMultiple', sortOrder);
 		default:
 			return items;
 	}

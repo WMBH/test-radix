@@ -9,6 +9,9 @@ import './css/Form.css';
 const FormToRender = (props) => {
 	const { handleSubmit } = props;
 
+	const required = required();
+	const date = date({ format: 'dd/mm/yyyy' });
+	const numericality = numericality();
 	return (
 		<form onSubmit={handleSubmit}>
 			<div className="fields">
@@ -17,28 +20,28 @@ const FormToRender = (props) => {
 					name="name"
 					component={Input}
 					placeholder="Enter a name"
-					validate={[ required() ]}
+					validate={[ required ]}
 				/>
 				<Field
 					className="field"
 					name="date"
 					component={Input}
 					placeholder="dd/mm/yyyy"
-					validate={[ date({ format: 'dd/mm/yyyy' }) ]}
+					validate={[ date, numericality ]}
 				/>
 				<Field
 					className="field"
 					name="days"
 					component={Input}
 					placeholder="Days in space"
-					validate={(required(), numericality())}
+					validate={(required, numericality)}
 				/>
 				<Field
 					className="field"
 					name="mission"
 					component={Input}
 					placeholder="Mission name"
-					validate={[ required() ]}
+					validate={[ required ]}
 				/>
 				<div className="checkbox-field">
 					<h6>Наличие повторных полетов</h6>
