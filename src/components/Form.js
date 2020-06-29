@@ -7,7 +7,7 @@ import Input from './common/FormContol';
 import './css/Form.css';
 
 const requiredValidator = [ required() ];
-const dateValidator = [ date({ format: 'dd/mm/yyyy' }), numericality() ];
+const dateValidator = [ date({ format: 'dd/mm/yyyy' }) ];
 const daysValidator = [ required(), numericality() ];
 
 const FormToRender = (props) => {

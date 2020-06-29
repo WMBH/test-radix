@@ -3,13 +3,12 @@ import Form from 'react-bootstrap/Form';
 
 import './FormControl.css';
 
-const Input = ({ input, meta, placeholder, ...props }) => {
+const Input = ({ input, meta, placeholder }) => {
 	const hasError = meta.submitFailed && meta.error;
 
 	return (
 		<div>
 			<Form.Control
-				{...props}
 				{...input}
 				size="sm"
 				type="text"
