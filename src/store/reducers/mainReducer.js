@@ -1,57 +1,57 @@
-const GET_TABLE_DATA = 'main/GET_TABLE_DATA';
-const SET_PAGE_IS_READY = 'main/SET_PAGE_IS_READY';
-const SET_FILTER = 'main/SET_FILTER';
-const SET_QUERY = 'main/SET_QUERY';
-const TOGGLE_EDIT_MODE = 'main/TOGGLE_EDIT_MODE';
-const ADD_ITEM = 'main/ADD_ITEM';
-const REMOVE_ITEM = 'main/REMOVE_ITEM';
+const SET_TABLE_DATA = "main/SET_TABLE_DATA";
+const SET_PAGE_IS_READY = "main/SET_PAGE_IS_READY";
+const SET_FILTER = "main/SET_FILTER";
+const SET_QUERY = "main/SET_QUERY";
+const TOGGLE_EDIT_MODE = "main/TOGGLE_EDIT_MODE";
+const ADD_ITEM = "main/ADD_ITEM";
+const REMOVE_ITEM = "main/REMOVE_ITEM";
 
 const initialState = {
   items: [],
   isReady: false,
-  searchQuery: '',
-  filterBy: 'name',
+  searchQuery: "",
+  filterBy: "name",
   sortByIsAsc: true,
-  editModeOn: false,
+  editModeOn: false
 };
 
 const mainReducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'main/ADD_ITEM':
+    case ADD_ITEM:
       return {
         ...state,
-        items: [...state.items, action.payload],
+        items: [...state.items, action.payload]
       };
-    case 'main/REMOVE_ITEM':
+    case REMOVE_ITEM:
       return {
         ...state,
-        items: state.items.filter((item) => item.id !== action.payload),
+        items: state.items.filter((item) => item.id !== action.payload)
       };
-    case 'main/GET_TABLE_DATA':
+    case SET_TABLE_DATA:
       return {
         ...state,
-        items: action.payload,
+        items: action.payload
       };
-    case 'main/SET_PAGE_IS_READY':
+    case SET_PAGE_IS_READY:
       return {
         ...state,
-        isReady: action.payload,
+        isReady: action.payload
       };
-    case 'main/SET_FILTER':
+    case SET_FILTER:
       return {
         ...state,
         filterBy: action.payload.filterBy,
-        sortByIsAsc: action.payload.sortByIsAsc,
+        sortByIsAsc: action.payload.sortByIsAsc
       };
-    case 'main/SET_QUERY':
+    case SET_QUERY:
       return {
         ...state,
-        searchQuery: action.payload,
+        searchQuery: action.payload
       };
-    case 'main/TOGGLE_EDIT_MODE':
+    case TOGGLE_EDIT_MODE:
       return {
         ...state,
-        editModeOn: !state.editModeOn,
+        editModeOn: !state.editModeOn
       };
     default:
       return state;
@@ -59,17 +59,17 @@ const mainReducer = (state = initialState, action) => {
 };
 
 export const getTableData = (items) => ({
-  type: GET_TABLE_DATA,
-  payload: items,
+  type: SET_TABLE_DATA,
+  payload: items
 });
 export const setPageIsReady = (boolean) => ({
   type: SET_PAGE_IS_READY,
-  payload: boolean,
+  payload: boolean
 });
 export const setFilter = (payload) => ({ type: SET_FILTER, payload });
 export const setSearchQuery = (searchQuery) => ({
   type: SET_QUERY,
-  payload: searchQuery,
+  payload: searchQuery
 });
 export const toggleEditMode = () => ({ type: TOGGLE_EDIT_MODE });
 export const addItem = (obj) => ({ type: ADD_ITEM, payload: obj });

@@ -14,7 +14,7 @@ import {
   setSearchQuery,
   addItem,
   removeItem
-} from "../store/reducers/main-reducer";
+} from "../store/reducers/mainReducer";
 
 const sortBy = (items, filterBy, sortByIsAsc) => {
   const sortOrder = sortByIsAsc ? "asc" : "desc";
