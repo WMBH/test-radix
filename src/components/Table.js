@@ -12,11 +12,12 @@ import { convertDateToMS, capitalLetter } from '../utils/helpers';
 
 import './css/Table.css';
 
+const postsPerPage = 10;
+
 const TableComponent = (props) => {
 	const { items, isReady, searchQuery, setSearchQuery, toggleEditMode, editModeOn, addItem, removeItem } = props;
 
 	const [ currentPage, setCurrentPage ] = useState(1);
-	const postsPerPage = 10;
 	const indexOfLastPost = currentPage * postsPerPage;
 	const indexOfFirstPost = indexOfLastPost - postsPerPage;
 	const currentPosts = items.slice(indexOfFirstPost, indexOfLastPost);
@@ -30,7 +31,7 @@ const TableComponent = (props) => {
 	};
 
 	const handleSubmitForm = (values) => {
-		let newValues = {
+		const newValues = {
 			...values,
 			id: uuidv4(),
 			days: parseInt(values.days),
@@ -40,10 +41,6 @@ const TableComponent = (props) => {
 		};
 		addItem(newValues);
 		props.reset('edit');
-	};
-
-	const handleOnRemove = (id) => {
-		removeItem(id);
 	};
 
 	return (
@@ -68,7 +65,7 @@ const TableComponent = (props) => {
 							<TableElement
 								{...dataItem}
 								key={dataItem.id}
-								onRemove={handleOnRemove}
+								onRemove={removeItem}
 								editModeOn={editModeOn}
 							/>
 						))
