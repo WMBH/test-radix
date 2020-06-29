@@ -48,11 +48,13 @@ const searchItems = (items, filterBy, searchQuery, sortByIsAsc) =>
 const TableContainer = (props) => {
   const { getTableData, setPageIsReady } = props;
   useEffect(() => {
-    axios.get("/data.json").then(({ data }) => {
-      const dataWithIDs = data.map((item) => ({ ...item, id: uuidv4() }));
-      getTableData(dataWithIDs);
-      setPageIsReady(true);
-    });
+    if (!localStorage.length) {
+      axios.get("/data.json").then(({ data }) => {
+        const dataWithIDs = data.map((item) => ({ ...item, id: uuidv4() }));
+        getTableData(dataWithIDs);
+        setPageIsReady(true);
+      });
+    }
   }, []);
   return <TableComponent {...props} />;
 };
