@@ -1,14 +1,17 @@
-import React, { useCallback } from 'react';
+import React, { useCallback } from "react";
 
 const TableHeader = (props) => {
   const { setFilter, sortByIsAsc } = props;
 
   const onClickItem = useCallback(
     (event) => {
-      const abbr = event.target.abbr;
-      setFilter({ filterBy: abbr, sortByIsAsc: !sortByIsAsc });
+      const { abbr } = event.target;
+      setFilter({
+        filterBy: abbr,
+        sortByIsAsc: !sortByIsAsc
+      });
     },
-    [setFilter, sortByIsAsc],
+    [setFilter, sortByIsAsc]
   );
 
   return (
