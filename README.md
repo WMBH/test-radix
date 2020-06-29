@@ -2,24 +2,21 @@
 
 **Demo:**
 
-http://react-book-store.surge.sh/
+http://text-radix.surge.sh/
 
 **Stack:**
 
-* ReactJS
-* Redux
-* Axios
-* Lodash
-* Bootstrap (React)
-* redux-form
-* uuid
+- ReactJS
+- Redux
+- Axios
+- Lodash
+- Bootstrap (React)
+- redux-form
+- uuid
 
 **Features:**
 
-* Поиск по имени и названию миссии
-* Сортировка по всем полям таблицы
-* Добавление/Удаление элементов
-* Пагинация
-
-
-
+- Поиск по имени и названию миссии
+- Сортировка по всем полям таблицы
+- Добавление/Удаление элементов
+- Пагинация
