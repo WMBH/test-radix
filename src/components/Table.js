@@ -15,66 +15,84 @@ import './css/Table.css';
 const postsPerPage = 10;
 
 const TableComponent = (props) => {
-	const { items, isReady, searchQuery, setSearchQuery, toggleEditMode, editModeOn, addItem, removeItem } = props;
+  const {
+    items,
+    isReady,
+    searchQuery,
+    setSearchQuery,
+    toggleEditMode,
+    editModeOn,
+    addItem,
+    removeItem,
+  } = props;
 
-	const [ currentPage, setCurrentPage ] = useState(1);
-	const indexOfLastPost = currentPage * postsPerPage;
-	const indexOfFirstPost = indexOfLastPost - postsPerPage;
-	const currentPosts = items.slice(indexOfFirstPost, indexOfLastPost);
+  const [currentPage, setCurrentPage] = useState(1);
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentPosts = items.slice(indexOfFirstPost, indexOfLastPost);
 
-	const paginate = (pageNumber) => {
-		setCurrentPage(pageNumber);
-	};
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
 
-	const handleFieldChange = (e) => {
-		setSearchQuery(e.target.value);
-	};
+  const handleFieldChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
 
-	const handleSubmitForm = (values) => {
-		const newValues = {
-			...values,
-			id: uuidv4(),
-			days: parseInt(values.days),
-			name: capitalLetter(values.name),
-			date: convertDateToMS(values.date),
-			mission: capitalLetter(values.mission)
-		};
-		addItem(newValues);
-		props.reset('edit');
-	};
+  const handleSubmitForm = (values) => {
+    const newValues = {
+      ...values,
+      id: uuidv4(),
+      days: parseInt(values.days),
+      name: capitalLetter(values.name),
+      date: convertDateToMS(values.date),
+      mission: capitalLetter(values.mission),
+    };
+    addItem(newValues);
+    props.reset('edit');
+  };
 
-	return (
-		<div>
-			<div className="editmode">
-				<Button variant="light" onClick={toggleEditMode}>
-					Режим редактирования
-				</Button>
-				<input type="text" value={searchQuery} placeholder="Поиск..." onChange={handleFieldChange} />
-				{editModeOn && <ReduxForm onSubmit={handleSubmitForm} />}
-			</div>
+  return (
+    <div>
+      <div className="editmode">
+        <Button variant="light" onClick={toggleEditMode}>
+          Режим редактирования
+        </Button>
+        <input
+          type="text"
+          value={searchQuery}
+          placeholder="Поиск..."
+          onChange={handleFieldChange}
+        />
+        {editModeOn && <ReduxForm onSubmit={handleSubmitForm} />}
+      </div>
 
-			<Table striped bordered hover size="md">
-				<thead>
-					<TableHeader />
-				</thead>
-				<tbody>
-					{!isReady ? (
-						<Preloader />
-					) : (
-						currentPosts.map((dataItem) => (
-							<TableElement
-								{...dataItem}
-								key={dataItem.id}
-								onRemove={removeItem}
-								editModeOn={editModeOn}
-							/>
-						))
-					)}
-				</tbody>
-			</Table>
-			<Pagination postsPerPage={postsPerPage} totalPosts={items.length} paginate={paginate} />
-		</div>
-	);
+      <Table striped bordered hover size="md">
+        <thead>
+          <TableHeader />
+        </thead>
+        <tbody>
+          {!isReady ? (
+            <Preloader />
+          ) : (
+            currentPosts.map((dataItem) => (
+              <TableElement
+                {...dataItem}
+                key={dataItem.id}
+                onRemove={removeItem}
+                editModeOn={editModeOn}
+              />
+            ))
+          )}
+        </tbody>
+      </Table>
+      <Pagination
+        postsPerPage={postsPerPage}
+        totalPosts={items.length}
+        paginate={paginate}
+      />
+    </div>
+  );
 };
 
 export default TableComponent;

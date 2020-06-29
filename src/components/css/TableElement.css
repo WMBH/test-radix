@@ -1,14 +1,14 @@
 .tdparent {
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .btn .btn-danger {
-	margin: 0;
+  margin: 0;
 }
 
 .btn-group-sm > .btn,
 .btn-sm {
-	font-size: 0.5rem;
+  font-size: 0.5rem;
 }

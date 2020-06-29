@@ -1,31 +1,31 @@
 body {
-	margin-top: 20px;
-	margin-left: 20px;
-	margin-right: 20px;
+  margin-top: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
 }
 
 .App {
-	text-align: center;
+  text-align: center;
 }
 
 td .fields {
-	display: flex;
+  display: flex;
 }
 
 div .editmode {
-	margin: 15px;
+  margin: 15px;
 }
 div .editmode input {
-	float: right;
+  float: right;
 }
 
 .editmode form .fields {
-	display: flex;
-	justify-content: space-around;
-	align-items: center;
-	margin: 20px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 20px;
 }
 
 .clickable {
-	cursor: pointer;
+  cursor: pointer;
 }
