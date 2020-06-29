@@ -6,10 +6,9 @@ import Input from './common/FormContol';
 
 import './css/Form.css';
 
-const nameValidator = [ required() ];
+const requiredValidator = [ required() ];
 const dateValidator = [ date({ format: 'dd/mm/yyyy' }), numericality() ];
 const daysValidator = [ required(), numericality() ];
-const missionValidator = [ required ];
 
 const FormToRender = (props) => {
 	const { handleSubmit } = props;
@@ -22,7 +21,7 @@ const FormToRender = (props) => {
 					name="name"
 					component={Input}
 					placeholder="Enter a name"
-					validate={nameValidator}
+					validate={requiredValidator}
 				/>
 				<Field
 					className="field"
@@ -43,7 +42,7 @@ const FormToRender = (props) => {
 					name="mission"
 					component={Input}
 					placeholder="Mission name"
-					validate={missionValidator}
+					validate={requiredValidator}
 				/>
 				<div className="checkbox-field">
 					<h6>Наличие повторных полетов</h6>
