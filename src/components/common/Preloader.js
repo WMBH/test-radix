@@ -1,9 +1,9 @@
-import React from 'react';
-import preloader from '../../assets/img/preloader.svg';
+import React from "react";
+import preloader from "../../assets/img/preloader.svg";
 
-const styles = { backgroundColor: 'white' };
+const styles = { backgroundColor: "white" };
 
-const Preloader = (props) => {
+const Preloader = () => {
   return (
     <div style={styles}>
       <img src={preloader} alt="Загрузка..." />

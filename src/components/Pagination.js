@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback } from "react";
 
 const PageItem = ({ number, onClick }) => {
   const page = number + 1;
@@ -15,16 +15,14 @@ const PageItem = ({ number, onClick }) => {
   );
 };
 
-const Pagination = ({ postsPerPage, totalPosts, paginate }) => {
-  return (
-    <nav>
-      <ul className="pagination">
-        {[...Array(Math.ceil(totalPosts / postsPerPage))].map((_, index) => (
-          <PageItem key={index} number={index} onClick={paginate} />
-        ))}
-      </ul>
-    </nav>
-  );
-};
+const Pagination = ({ postsPerPage, totalPosts, paginate }) => (
+  <nav>
+    <ul className="pagination">
+      {[...Array(Math.ceil(totalPosts / postsPerPage))].map((_, index) => (
+        <PageItem key={index} number={index} onClick={paginate} />
+      ))}
+    </ul>
+  </nav>
+);
 
 export default Pagination;

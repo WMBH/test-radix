@@ -1,8 +1,8 @@
-import React, { useCallback } from 'react';
-import Button from 'react-bootstrap/Button';
+import React, { useCallback } from "react";
+import Button from "react-bootstrap/Button";
 
-import { convertDateToDateString } from '../utils/helpers';
-import './css/TableElement.css';
+import { convertDateToDateString } from "../utils/helpers";
+import "./css/TableElement.css";
 
 const TableElement = (props) => {
   const {
@@ -16,9 +16,7 @@ const TableElement = (props) => {
     editModeOn,
   } = props;
 
-  const formDate = useCallback(() => {
-    return convertDateToDateString(date);
-  }, [date]);
+  const formDate = useCallback(() => convertDateToDateString(date), [date]);
 
   const onClickRemove = useCallback(() => {
     onRemove(id);
@@ -31,7 +29,7 @@ const TableElement = (props) => {
       <td>{days}</td>
       <td>{mission}</td>
       <td className="tdparent">
-        <div> {isMultiple ? 'есть' : 'нет'}</div>
+        <div>{isMultiple ? "есть" : "нет"}</div>
         <div>
           {editModeOn && (
             <Button variant="danger" onClick={onClickRemove} size="sm">

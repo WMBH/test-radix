@@ -1,16 +1,17 @@
-import React, { useState } from 'react';
-import Button from 'react-bootstrap/Button';
-import Table from 'react-bootstrap/Table';
-import { v4 as uuidv4 } from 'uuid';
+/* eslint-disable radix */
+import React, { useState } from "react";
+import Button from "react-bootstrap/Button";
+import Table from "react-bootstrap/Table";
+import { v4 as uuidv4 } from "uuid";
 
-import TableHeader from '../containers/TableHeader';
-import TableElement from './TableElement';
-import Pagination from './Pagination';
-import Preloader from './common/Preloader';
-import ReduxForm from './Form';
-import { convertDateToMS, capitalLetter } from '../utils/helpers';
+import TableHeader from "../containers/TableHeader";
+import TableElement from "./TableElement";
+import Pagination from "./Pagination";
+import Preloader from "./common/Preloader";
+import ReduxForm from "./Form";
+import { convertDateToMS, capitalLetter } from "../utils/helpers";
 
-import './css/Table.css';
+import "./css/Table.css";
 
 const postsPerPage = 10;
 
@@ -23,7 +24,7 @@ const TableComponent = (props) => {
     toggleEditMode,
     editModeOn,
     addItem,
-    removeItem,
+    removeItem
   } = props;
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -46,10 +47,10 @@ const TableComponent = (props) => {
       days: parseInt(values.days),
       name: capitalLetter(values.name),
       date: convertDateToMS(values.date),
-      mission: capitalLetter(values.mission),
+      mission: capitalLetter(values.mission)
     };
     addItem(newValues);
-    props.reset('edit');
+    props.reset("edit");
   };
 
   return (
