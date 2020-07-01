@@ -1,20 +1,24 @@
 import React from "react";
 import { reduxForm, Field } from "redux-form";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
 import { required, date, numericality } from "redux-form-validators";
 
 import Input from "./common/FormContol";
+import { validateTime } from "../utils/helpers";
 
 import "./css/Form.css";
 
 const requiredValidator = [required()];
 const dateValidator = [date({ format: "dd/mm/yyyy" })];
 const daysValidator = [required(), numericality()];
+const timeValidator = [validateTime];
 
 const FormToRender = (props) => {
   const { handleSubmit } = props;
 
   return (
-    <form onSubmit={handleSubmit}>
+    <Form onSubmit={handleSubmit}>
       <div className="fields">
         <Field
           className="field"
@@ -29,6 +33,13 @@ const FormToRender = (props) => {
           component={Input}
           placeholder="dd/mm/yyyy"
           validate={dateValidator}
+        />
+        <Field
+          className="field"
+          name="time"
+          component={Input}
+          placeholder="hh:mm:ss"
+          validate={timeValidator}
         />
         <Field
           className="field"
@@ -53,14 +64,14 @@ const FormToRender = (props) => {
             type="checkbox"
           />
         </div>
-        <button>Добавить запись</button>
+        <Button type="submit">Добавить запись</Button>
       </div>
-    </form>
+    </Form>
   );
 };
 
 const ReduxForm = reduxForm({
-  form: "edit",
+  form: "edit"
 })(FormToRender);
 
 export default ReduxForm;

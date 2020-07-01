@@ -4,13 +4,14 @@ import Form from "react-bootstrap/Form";
 
 import "./FormControl.css";
 
-const Input = ({ input, meta, placeholder }) => {
+const Input = ({ input, meta, placeholder, ...props }) => {
   const hasError = meta.submitFailed && meta.error;
 
   return (
     <div>
       <Form.Control
         // eslint-disable-next-line react/jsx-props-no-spreading
+        {...props}
         {...input}
         size="sm"
         type="text"

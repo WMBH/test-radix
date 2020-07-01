@@ -3,16 +3,7 @@ import capitalize from "lodash/capitalize";
 export const convertDateToMS = (date, time) => {
   const dateArr = date.split("/");
   const timeArr = time.split(":");
-  // if (
-  //   parseInt(dateArr[2].charAt(1), 10) === 9 &&
-  //   parseInt(dateArr[2].charAt(0), 10) === 1
-  // ) {
-  //   dateArr[2] = dateArr[2].slice(-2);
-  // } else if (parseInt(dateArr[2].charAt(0), 10) === 0) {
-  //   dateArr[2] = dateArr[2].slice(-3);
-  // }
-
-  const convertedDate = new Date(
+  return new Date(
     parseInt(dateArr[2], 10),
     parseInt(dateArr[1], 10) - 1,
     parseInt(dateArr[0], 10),
@@ -20,8 +11,6 @@ export const convertDateToMS = (date, time) => {
     parseInt(timeArr[1], 10),
     parseInt(timeArr[2], 10)
   ).getTime();
-
-  return new Date(convertedDate);
 };
 
 export const capitalLetter = (str) => {
@@ -32,8 +21,7 @@ export const capitalLetter = (str) => {
 };
 
 export const convertDateToDateString = (date) => {
-  const convertedDate = new Date(date).toLocaleString("ru");
-  return convertedDate;
+  return new Date(date).toLocaleString("ru");
 };
 
 export const loadState = () => {
@@ -55,4 +43,17 @@ export const saveState = (state) => {
   } catch {
     // ignore write errors
   }
+};
+
+export const validateTime = (value) => {
+  if (
+    value &&
+    value.charAt(0) < 3 &&
+    value.charAt(1) < 7 &&
+    value.charAt(3) < 7 &&
+    value.charAt(6) < 7
+  ) {
+    return undefined;
+  }
+  return "Value is invalid";
 };

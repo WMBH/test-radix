@@ -42,15 +42,19 @@ const TableComponent = (props) => {
 
   const handleSubmitForm = (values) => {
     const newValues = {
-      ...values,
       id: uuidv4(),
       days: parseInt(values.days),
       name: capitalLetter(values.name),
-      date: convertDateToMS(values.date),
+      date: convertDateToMS(values.date, values.time),
       mission: capitalLetter(values.mission)
     };
     addItem(newValues);
     props.reset("edit");
+  };
+
+  const handleBackToInitialData = () => {
+    localStorage.clear();
+    window.location.reload();
   };
 
   return (
@@ -58,6 +62,13 @@ const TableComponent = (props) => {
       <div className="editmode">
         <Button variant="light" onClick={toggleEditMode}>
           Режим редактирования
+        </Button>
+        <Button
+          variant="warning"
+          className="reset"
+          onClick={handleBackToInitialData}
+        >
+          Возврат к исходным данным
         </Button>
         <input
           type="text"
